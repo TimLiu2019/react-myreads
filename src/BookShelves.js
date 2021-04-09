@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";  
 import BookShelf from './BookShelf';
-
+import * as BooksAPI from "./BooksAPI";
 class BookShelves extends Component {
+
+  componentDidMount() {
+    BooksAPI.getAll().then(books => {
+        console.log('books',books )
+    });
+  }
+
   render() {
     return (
       <div>
