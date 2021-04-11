@@ -12,11 +12,17 @@ class SearchInput extends Component {
  
     this.setState(() => ({
         inputText: event.target.value
-      }),()=>{this.search()} );
+      }) );
    
     // }
     console.log(` change is: ${this.state.inputText} `);
   };
+  handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      console.log('do search');
+      this.search();
+    }
+  }
 
   search = () => {
     let query = this.state.inputText;
@@ -48,6 +54,7 @@ class SearchInput extends Component {
           type="text"
           placeholder="Search by title or author"
           value={this.state.inputText}
+          onKeyDown={this.handleKeyDown}
           onChange={this.handleChange}
         />
       </div>
