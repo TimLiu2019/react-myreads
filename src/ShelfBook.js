@@ -32,7 +32,7 @@ const ShelfBook = props => {
       </div>
     </div>
     <div className="book-title">{props.book.title}</div>
-    <div className="book-authors">{props.book.authors[0]}</div>
+    <div className="book-authors">{props.book.authors}</div>
   </div>
   );
 
