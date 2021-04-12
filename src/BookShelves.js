@@ -35,7 +35,7 @@ class BookShelves extends Component {
             <div>
             <div className="bookshelf">
                 <h2 className="bookshelf-title">Currently Reading</h2>
-                <BookShelf books={this.state.currentReadBooks} />
+                <BookShelf books={this.state.currentReadBooks }  />
               </div>
                
               <div className="bookshelf">
