@@ -9,24 +9,23 @@ class SearchInput extends Component {
   }
 
   handleChange = event => {
- 
     this.setState(() => ({
-        inputText: event.target.value
-      }) );
-   
+      inputText: event.target.value
+    }));
+
     // }
     console.log(` change is: ${this.state.inputText} `);
   };
-  handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      console.log('do search');
+  handleKeyDown = e => {
+    if (e.key === "Enter") {
+      console.log("do search");
       this.search();
     }
-  }
+  };
 
   search = () => {
     let query = this.state.inputText;
-    if (query !== '' && query !== null) {
+    if (query !== "" && query !== null) {
       BooksAPI.search(query).then(books => {
         console.log("books in SearchInput", books);
         if (books.length > 0) {
@@ -38,7 +37,6 @@ class SearchInput extends Component {
       this.props.onHandleSearch(books);
     }
   };
-
 
   render() {
     return (
