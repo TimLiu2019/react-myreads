@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";  
 import BookShelf from './BookShelf';
 import * as BooksAPI from "./BooksAPI";
+import PubSub from 'pubsub-js';
 class BookShelves extends Component {
   state = {
     currentReadBooks: [],
@@ -10,21 +11,33 @@ class BookShelves extends Component {
 
   };
   componentDidMount() {
-    BooksAPI.getAll().then(books => {
-        console.log('books',books );
-        this.setState(() => ({
-          currentReadBooks: books.filter(book => book.shelf === 'currentlyReading'),
-          wantReadBooks: books.filter(book => book.shelf === 'wantToRead'),
-          readBooks: books.filter(book => book.shelf === 'read')
+    this.getAllShelves();
 
-        }));
-        console.log('currentlyreading', this.state.currentReadBooks);
-        console.log('wanttoread', this.state.wantReadBooks);
-        console.log('read', this.state.readBooks);
-    });
-  }
+    this.token = PubSub.subscribe('updateShelves',(_,update)=>{
+		  this.getAllShelves();
+		})
+	}
+
+	componentWillUnmount(){
+		PubSub.unsubscribe(this.token)
+	}
+  getAllShelves = () => {
+    BooksAPI.getAll().then(books => {
+    //  console.log('books',books );
+      this.setState(() => ({
+        currentReadBooks: books.filter(book => book.shelf === 'currentlyReading'),
+        wantReadBooks: books.filter(book => book.shelf === 'wantToRead'),
+        readBooks: books.filter(book => book.shelf === 'read')
+
+      }));
+      // console.log('currentlyreading', this.state.currentReadBooks);
+      // console.log('wanttoread', this.state.wantReadBooks);
+      // console.log('read', this.state.readBooks);
+  });
+  };
 
   render() {
+   
     return (
       <div>
         <div className="list-books">
