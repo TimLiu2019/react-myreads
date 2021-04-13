@@ -32,14 +32,14 @@ class SearchInput extends Component {
     let query = this.state.inputText.trim();
     if (query !== '' && query.length!== 0) {
       BooksAPI.search(query).then(books => {
-        console.log("query", query);
-        console.log("searched books", books);
+      //  console.log("query", query);
+      //  console.log("searched books", books);
         if (books.length > 0) {
           this.props.onHandleSearch(books);
         }
       });
     } else if (query.length === 0) {
-      console.log('query length', query.length);
+    //  console.log('query length', query.length);
       const books = [];
       this.props.onHandleSearch(books);
     }
