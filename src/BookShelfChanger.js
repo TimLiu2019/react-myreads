@@ -29,17 +29,17 @@ class BookShelfChanger extends Component {
 
   selectNewShelf = () => {
     const pathname = window.location.pathname;
-  //  console.log("new shelf", this.state.value);
-  //  console.log("current path", pathname);
-     // use pubsub to inform home page
+    //  console.log("new shelf", this.state.value);
+    //  console.log("current path", pathname);
+    // use pubsub to inform home page
     BooksAPI.update(this.props.book, this.state.value).then(res => {
-     // console.log("new shelf", res);
+      // console.log("new shelf", res);
       if (pathname === "/") {
+        //source:  https://www.npmjs.com/package/pubsub-js
         PubSub.publish("updateShelves", { updateShelves: true });
-      //  console.log("publish new ");
+        //  console.log("publish new ");
       }
     });
-
   };
 
   render() {
