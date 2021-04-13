@@ -44,7 +44,7 @@ Reactjs
 4.  yard add prop-types
 5.  yarn add pubsub-js (publish a message, subsrribe from home page)
 
-## API BooksAPI.js
+## API:    BooksAPI.js
 
 ### getAll Method: getAll()
 

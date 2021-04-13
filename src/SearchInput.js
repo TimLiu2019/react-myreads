@@ -9,30 +9,37 @@ class SearchInput extends Component {
   }
 
   handleChange = event => {
-    this.setState(() => ({
-      inputText: event.target.value
-    }));
-
-    // }
+    this.setState(
+      () => ({
+        inputText: event.target.value
+      }),
+      () => {
+        this.search();
+      }
+    );
+  };
+  // }
   //  console.log(` change is: ${this.state.inputText} `);
-  };
-  handleKeyDown = e => {
-    if (e.key === "Enter") {
-    //  console.log("do search");
-      this.search();
-    }
-  };
+
+  //   handleKeyDown = e => {
+  //    // if (e.key === "Enter") {
+  //     //  console.log("do search");
+  //       this.search();
+  //   //  }
+  //   };
 
   search = () => {
-    let query = this.state.inputText;
-    if (query !== "" && query !== null) {
+    let query = this.state.inputText.trim();
+    if (query !== '' && query.length!== 0) {
       BooksAPI.search(query).then(books => {
-    //    console.log("books in SearchInput", books);
+        console.log("query", query);
+        console.log("searched books", books);
         if (books.length > 0) {
           this.props.onHandleSearch(books);
         }
       });
-    } else {
+    } else if (query.length === 0) {
+      console.log('query length', query.length);
       const books = [];
       this.props.onHandleSearch(books);
     }
@@ -52,7 +59,6 @@ class SearchInput extends Component {
           type="text"
           placeholder="Search by title or author"
           value={this.state.inputText}
-          onKeyDown={this.handleKeyDown}
           onChange={this.handleChange}
         />
       </div>
