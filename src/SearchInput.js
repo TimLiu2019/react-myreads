@@ -20,7 +20,7 @@ class SearchInput extends Component {
   };
   // }
   //  console.log(` change is: ${this.state.inputText} `);
-
+ //  press enter to search
   //   handleKeyDown = e => {
   //    // if (e.key === "Enter") {
   //     //  console.log("do search");
