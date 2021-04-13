@@ -13,7 +13,7 @@ class BookShelfChanger extends Component {
     { lable: "Read", value: "read" },
     { lable: "None", value: "none" }
   ];
-
+   defaultOption = this.props.book.shelf === undefined ? "none" : this.props.book.shelf;
   handleChange = event => {
     if (this.state.vaule !== event.target.value) {
       this.setState(
@@ -46,7 +46,7 @@ class BookShelfChanger extends Component {
     return (
       <div className="book-shelf-changer">
         <select
-          defaultValue={this.props.book.shelf}
+          defaultValue={this.defaultOption}
           onChange={this.handleChange}
         >
           {this.options.map(o => (
