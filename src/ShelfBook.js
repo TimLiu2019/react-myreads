@@ -23,7 +23,7 @@ const ShelfBook = props => {
     <div className="book">
       <div className="book-top">
         <div className="book-cover" style={style}></div>
-        <BookShelfChanger book={props.book} onShelfChange={props.onShelfChange}/>
+        <BookShelfChanger book={props.book} onShelfChange={props.onShelfChange} onSearchChange={props.onSearchChange}/>
       </div>
       <div className="book-title">{title}</div>
       <div className="book-authors">{authors}</div>

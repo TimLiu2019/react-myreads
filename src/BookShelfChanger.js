@@ -30,6 +30,10 @@ class BookShelfChanger extends Component {
      this.props.onShelfChange();
   }
 
+  searchChange = ()=>{
+    this.props.onSearchChange();
+ }
+ 
   selectNewShelf = () => {
     const pathname = window.location.pathname;
     //  console.log("new shelf", this.state.value);
@@ -42,6 +46,8 @@ class BookShelfChanger extends Component {
         //source:  https://www.npmjs.com/package/pubsub-js
         // PubSub.publish("updateShelves", { updateShelves: true });
         //  console.log("publish new ");
+      }  else if(pathname ==="/search"){
+          this.searchChange();
       }
     });
   };

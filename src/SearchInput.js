@@ -6,40 +6,50 @@ class SearchInput extends Component {
     this.state = {
       inputText: ""
     };
+    this.timeout = 0;
   }
-
+  /* Search after stop typing */ 
   handleChange = event => {
-    this.setState(
-      () => ({
-        inputText: event.target.value
-      }),
-      () => {
+    this.setState({inputText: event.target.value});
+
+    if(this.timeout) clearTimeout(this.timeout);
+    this.timeout = setTimeout(()=>{
+         this.search();
+    },800);
+  };
+
+/* search when typing, may have errors when typing too fast */
+//   handleChange = event => {
+//     this.setState(
+//       {
+//         inputText: event.target.value
+//       },
+//       () => {this.search();}
+//     );
+//   };
+  // } ({ title: event.target.value }, () => this.APICallFunction())
+  //  console.log(` change is: ${this.state.inputText} `);
+
+  /*  press enter to search  */
+    handleKeyDown = e => {
+     if (e.key === "Enter") {
+     //   console.log("do search");
         this.search();
       }
-    );
-  };
-  // }
-  //  console.log(` change is: ${this.state.inputText} `);
- //  press enter to search
-  //   handleKeyDown = e => {
-  //    // if (e.key === "Enter") {
-  //     //  console.log("do search");
-  //       this.search();
-  //   //  }
-  //   };
-
+    };
+  
   search = () => {
-    let query = this.state.inputText.trim();
-    if (query !== '' && query.length!== 0) {
+    let query = this.state.inputText;
+    if (query.length > 0) {
       BooksAPI.search(query).then(books => {
-      //  console.log("query", query);
-      //  console.log("searched books", books);
+    //    console.log("query", query);
+    //    console.log("searched books", books);
         if (books.length > 0) {
           this.props.onHandleSearch(books);
         }
       });
     } else if (query.length === 0) {
-    //  console.log('query length', query.length);
+   //   console.log("query length", query.length);
       const books = [];
       this.props.onHandleSearch(books);
     }
@@ -59,6 +69,7 @@ class SearchInput extends Component {
           type="text"
           placeholder="Search by title or author"
           value={this.state.inputText}
+          onKeyDown={this.handleKeyDown}
           onChange={this.handleChange}
         />
       </div>
