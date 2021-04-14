@@ -1,42 +1,45 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import BookShelf from "./BookShelf";
-import * as BooksAPI from "./BooksAPI";
-import PubSub from "pubsub-js";
-class BookShelves extends Component {
-  state = {
-    currentReadBooks: [],
-    wantReadBooks: [],
-    readBooks: []
-  };
-  componentDidMount() {
-    this.getAllShelves();
-    //source:  https://www.npmjs.com/package/pubsub-js
-    this.token = PubSub.subscribe("updateShelves", (_, update) => {
-      this.getAllShelves();
-    });
-  }
+//import * as BooksAPI from "./BooksAPI";
+//import PubSub from "pubsub-js";
+const BookShelves = props => {
+  // state = {
+  //   currentReadBooks: [],
+  //   wantReadBooks: [],
+  //   readBooks: []
+  // };
+  // componentDidMount() {
+  //   console.log('componentDidMount in BookShelves');
+  //   this.getAllShelves();
+  //   //source:  https://www.npmjs.com/package/pubsub-js
+  //   // this.token = PubSub.subscribe("updateShelves", (_, update) => {
 
-  componentWillUnmount() {
-    PubSub.unsubscribe(this.token);
-  }
-  getAllShelves = () => {
-    BooksAPI.getAll().then(books => {
-      //  console.log('books',books );
-      this.setState(() => ({
-        currentReadBooks: books.filter(
-          book => book.shelf === "currentlyReading"
-        ),
-        wantReadBooks: books.filter(book => book.shelf === "wantToRead"),
-        readBooks: books.filter(book => book.shelf === "read")
-      }));
-      // console.log('currentlyreading', this.state.currentReadBooks);
-      // console.log('wanttoread', this.state.wantReadBooks);
-      // console.log('read', this.state.readBooks);
-    });
-  };
+  //   // });
+  // }
 
-  render() {
+  // componentWillUnmount() {
+  //   PubSub.unsubscribe(this.token);
+  // }
+
+  // getAllShelves = () => {
+  //   //  console.log('books',books );
+
+  //   this.setState(() => ({
+  //     currentReadBooks: this.props.books.filter(
+  //       book => book.shelf === "currentlyReading"
+  //     ),
+  //     wantReadBooks: this.props.books.filter(
+  //       book => book.shelf === "wantToRead"
+  //     ),
+  //     readBooks: this.props.books.filter(book => book.shelf === "read")
+  //   }));
+  //   console.log("currentlyreading", this.state.currentReadBooks);
+  //   // console.log('wanttoread', this.state.wantReadBooks);
+  //   // console.log('read', this.state.readBooks);
+  // };
+
+  
     return (
       <div>
         <div className="list-books">
@@ -47,16 +50,26 @@ class BookShelves extends Component {
             <div>
               <div className="bookshelf">
                 <h2 className="bookshelf-title">Currently Reading</h2>
-                <BookShelf books={this.state.currentReadBooks} />
+                <BookShelf
+                  books={props.books.filter(
+                    book => book.shelf === "currentlyReading"
+                  )}
+                />
               </div>
 
               <div className="bookshelf">
                 <h2 className="bookshelf-title">Want to Read</h2>
-                <BookShelf books={this.state.wantReadBooks} />
+                <BookShelf
+                  books={props.books.filter(
+                    book => book.shelf === "wantToRead"
+                  )}
+                />
               </div>
               <div className="bookshelf">
                 <h2 className="bookshelf-title">Read</h2>
-                <BookShelf books={this.state.readBooks} />
+                <BookShelf
+                  books={props.books.filter(book => book.shelf === "read")}
+                />
               </div>
             </div>
           </div>
@@ -69,6 +82,6 @@ class BookShelves extends Component {
       </div>
     );
   }
-}
+
 
 export default BookShelves;

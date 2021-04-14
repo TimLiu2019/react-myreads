@@ -2,20 +2,15 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import SearchInput from "./SearchInput";
 import BookShelf from "./BookShelf";
-import * as BooksAPI from "./BooksAPI";
+//import * as BooksAPI from "./BooksAPI";
 
 class SearchBooks extends Component {
   state = {
     searchedBooks: [],
-    booksInShelf:[]
+    booksInShelf: []
   };
   componentDidMount() {
-    BooksAPI.getAll().then(shelfBooks => {
-    //    console.log('books',shelfBooks );
-        this.setState(() => ({
-          booksInShelf: shelfBooks,
-        }));
-    });
+    this.getAllShelves();
   }
   //  log book in shelf
 //   this.setState(() => ({
@@ -23,8 +18,16 @@ class SearchBooks extends Component {
 //   }),()=>{console.log('book in shelf',this.state.booksInShelf)});
 // });
 // }
+getAllShelves = () => {
+   
+  this.setState(() => ({
+    booksInShelf: this.props.books
+  }));
+ 
+};
   handleSearch = books => {
     const shelfBooks = this.state.booksInShelf;
+    console.log('books in shelves searchbooks',shelfBooks );
     if (typeof(books) !== 'undefined' && books != null){
       // if the searched book already is in shelf, assign the shelf to the searched book
       for (let book of shelfBooks){
