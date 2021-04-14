@@ -11,7 +11,7 @@ import ShelfBook from './ShelfBook'
                   <ol className="books-grid">
                     {
                       books.map((book)=>(  <li key = {book.id}>
-                         <ShelfBook book ={book} />
+                         <ShelfBook book ={book} onShelfChange ={ props.onShelfChange}/>
                       </li>))
                     }    
                   </ol>

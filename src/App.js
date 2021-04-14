@@ -21,11 +21,15 @@ class BooksApp extends React.Component {
       }),()=>{console.log('all books ',this.state.allBooks)});
     });
   };
+
+  shelfChange = () =>{
+     this.getAllBooks();
+  };
   
   render() {
     return (
       <div className="app">
-         <Route exact path="/"  render={ ()=>(<BookShelves books ={this.state.allBooks}/>)} />
+         <Route exact path="/"  render={ ()=>(<BookShelves books ={this.state.allBooks} onShelfChange={this.shelfChange}/>)} />
          <Route exact path="/search" render={ ()=>(<SearchBooks books ={this.state.allBooks}/>)} />
       </div>
     )

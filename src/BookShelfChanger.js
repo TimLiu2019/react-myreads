@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import * as BooksAPI from "./BooksAPI";
-import PubSub from "pubsub-js";
+// import PubSub from "pubsub-js";
 
 class BookShelfChanger extends Component {
   state = {
@@ -26,6 +26,9 @@ class BookShelfChanger extends Component {
       );
     }
   };
+  shelfChange = ()=>{
+     this.props.onShelfChange();
+  }
 
   selectNewShelf = () => {
     const pathname = window.location.pathname;
@@ -35,8 +38,9 @@ class BookShelfChanger extends Component {
     BooksAPI.update(this.props.book, this.state.value).then(res => {
       // console.log("new shelf", res);
       if (pathname === "/") {
+          this.shelfChange();
         //source:  https://www.npmjs.com/package/pubsub-js
-        PubSub.publish("updateShelves", { updateShelves: true });
+        // PubSub.publish("updateShelves", { updateShelves: true });
         //  console.log("publish new ");
       }
     });
