@@ -43,15 +43,21 @@ class SearchInput extends Component {
     if (query.length > 0) {
       BooksAPI.search(query).then(books => {
     //    console.log("query", query);
-    //    console.log("searched books", books);
+        console.log("searched books", books);
+        console.log("searched books length", books.length);
+     //   if(query === this.state.inputText){
         if (books.length > 0) {
-          this.props.onHandleSearch(books);
+          this.props.onHandleSearch(books, false);
+        }//}
+        else if(books.length === undefined){
+            console.log('not found')
+            this.props.onHandleSearch([], true);
         }
       });
     } else if (query.length === 0) {
    //   console.log("query length", query.length);
       const books = [];
-      this.props.onHandleSearch(books);
+      this.props.onHandleSearch(books, false);
     }
   };
 

@@ -6,10 +6,11 @@ import BookShelf from "./BookShelf";
 
 class SearchBooks extends Component {
   state = {
-    searchedBooks: []
+    searchedBooks: [],
+    booksNotFound: false
   };
 
-  handleSearch = books => {
+  handleSearch = (books, booksNotFound) => {
     const shelfBooks = this.props.books;
     //   console.log('books in shelves searchbooks',shelfBooks );
     if (typeof books !== "undefined" && books != null) {
@@ -22,13 +23,20 @@ class SearchBooks extends Component {
       }
       //   console.log('add shelf books',books);
       this.setState(() => ({
-        searchedBooks: books
+        searchedBooks: books,
+        booksNotFound: booksNotFound
       }));
     } else if (books == null) {
       this.setState(() => ({
         searchedBooks: []
       }));
-    }
+      if (booksNotFound){
+        this.setState(() => ({
+          searchedBooks: [],
+          booksNotFound: booksNotFound
+        }));
+      } 
+    } 
   };
 
   render() {
@@ -41,6 +49,7 @@ class SearchBooks extends Component {
           <SearchInput onHandleSearch={this.handleSearch} />
         </div>
         <div className="search-books-results">
+         {this.state.booksNotFound && <p>Books not found</p> }
           <BookShelf
             books={this.state.searchedBooks}
             onSearchChange={this.props.onSearchChange} />
