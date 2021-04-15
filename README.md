@@ -25,16 +25,16 @@ The api is provided by Udacity
 
 ## Requirement
 
-Visual Studio Code (prefered)
-Nodejs
-npm
-yard
-Reactjs
+1. Visual Studio Code (prefered)
+2. Nodejs
+3. npm
+4. yard
+5. Reactjs
 
 ## To get started :
 
-    install all project dependencies with npm install
-     start the development server with npm star
+1. install all project dependencies with npm install
+2. start the development server with npm start
 
 ## Steps
 
@@ -44,7 +44,7 @@ Reactjs
 4.  yard add prop-types
 5.  yarn add pubsub-js (publish a message, subsrribe from home page)
 
-## API:    BooksAPI.js
+## API: BooksAPI.js
 
 ### getAll Method: getAll()
 
@@ -68,13 +68,14 @@ These books do not know which shelf they are on. They are raw results only. You'
 The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in SEARCH_TERMS.md. That list of terms are the only terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
 
 ## Issues Notes
+
 ### BookAPI: Cannot read property 'thumbnail' of undefined
-  Solution: 
-  const imageSrc =
-    props.book["imageLinks"] === undefined
-      ? ""
-      : `url(${props.book["imageLinks"]["thumbnail"]})`;
- 
+
+Solution:
+const imageSrc =
+props.book["imageLinks"] === undefined
+? ""
+: `url(${props.book["imageLinks"]["thumbnail"]})`;
 
 ## Available Scripts
 
